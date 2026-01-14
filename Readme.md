@@ -5,12 +5,6 @@ A modern **Weather Web Application** built using **HTML, CSS, and JavaScript** t
 This project is designed to demonstrate **API integration, async JavaScript, DOM manipulation, and UI/UX skills**, making it suitable for **GitHub portfolios and resumes**.
 
 ---
-
-## 🚀 Live Demo
-👉 *(Add GitHub Pages link here after deployment)*
-
----
-
 ## ✨ Features
 
 - 🔍 Search weather by city name  
@@ -57,7 +51,7 @@ git clone https://github.com/your-username/weather-app.git
 Open index.html in your browser
 
 3️⃣ Add API Key
-Replace the API key in script.js:
+17c2222e183af47a0183663124b6b66
 
 javascript
 Copy code
