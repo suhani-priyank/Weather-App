@@ -1,0 +1,93 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(135deg, #74ebd5, #9face6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s;
+}
+
+body.dark {
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: white;
+}
+
+.app {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 360px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+body.dark .app {
+  background: #1e1e1e;
+}
+
+.search input {
+  width: 85%;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.search button {
+  padding: 8px 10px;
+  margin: 3px;
+  border: none;
+  cursor: pointer;
+  background: #4e54c8;
+  color: white;
+  border-radius: 5px;
+}
+
+.search button:last-child {
+  background: #ff5c5c;
+}
+
+.dark-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* Loader FIX */
+.loader {
+  display: none;
+  border: 5px solid #e0e0e0;
+  border-top: 5px solid #4e54c8;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 12px auto;
+  animation: spin 1s linear infinite;
+}
+
+body.dark .loader {
+  border: 5px solid #555;
+  border-top: 5px solid #00d4ff;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.forecast {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.forecast div {
+  font-size: 12px;
+}
