@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1224">
+  <meta name="description" content="SkyCast — a polished weather dashboard with forecasts, air quality, saved cities and personalized weather insights.">
+  <title>SkyCast — Weather, in focus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="SkyCast home"><span class="brand-mark">✦</span><span>skycast<small>WEATHER, IN FOCUS</small></span></a>
+      <div class="side-label">YOUR WEATHER</div>
+      <button class="side-link active" data-scroll="top"><span>⌂</span> Overview</button>
+      <button class="side-link" data-scroll="forecastSection"><span>▦</span> Forecast</button>
+      <button class="side-link" data-scroll="airSection"><span>◉</span> Air quality</button>
+      <div class="side-label saved-label">SAVED PLACES <button id="addCurrentFavorite" title="Save current city">+</button></div>
+      <div id="favoritesList" class="favorites-list"><p class="muted small">Save a city to find it here.</p></div>
+      <div class="sidebar-bottom">
+        <div class="mini-note"><span class="note-icon">✧</span><strong>Plan your day smarter.</strong><p>Weather context, air quality and practical tips in one calm dashboard.</p></div>
+        <button id="themeToggle" class="theme-toggle"><span>◐</span> Switch appearance</button>
+        <div class="profile"><div class="avatar">S</div><div><strong>Your workspace</strong><small>Personal weather</small></div><span class="online-dot"></span></div>
+      </div>
+    </aside>
+
+    <main class="main" id="top">
+      <header class="topbar">
+        <div><p class="eyebrow">YOUR PERSONAL WEATHER DESK</p><h1>Forecast your <span>next move.</span></h1><p class="subtitle">A clearer view of the sky, wherever you're headed.</p></div>
+        <div class="top-actions"><span class="live-status"><i></i> Live conditions</span><button id="unitToggle" class="unit-toggle" aria-label="Toggle temperature unit">°C <span>/</span> °F</button></div>
+      </header>
+
+      <section class="search-row" aria-label="Search weather">
+        <div class="search-box"><span class="search-icon">⌕</span><input id="cityInput" type="text" placeholder="Search a city — e.g. Bhubaneswar" autocomplete="off"><button id="searchBtn" class="search-btn">Search <span>↗</span></button></div>
+        <button id="locationBtn" class="location-btn"><span>⌖</span> Use my location</button>
+      </section>
+      <p id="error" class="error" role="alert"></p>
+      <div id="loader" class="loading-bar"><span></span></div>
+
+      <section class="hero-grid">
+        <article class="current-card">
+          <div class="card-top"><div><p class="eyebrow light">CURRENT CONDITIONS</p><h2 id="cityName">Search for a city</h2><p id="currentDate" class="current-date">Your local forecast starts here</p></div><div id="weatherEmoji" class="weather-emoji">🌤️</div></div>
+          <div class="temperature-row"><div><div class="temperature" id="temperature">--<sup>°</sup></div><p id="condition" class="condition">Waiting for weather data</p></div><div class="high-low"><span>H <b id="highTemp">--°</b></span><span>L <b id="lowTemp">--°</b></span></div></div>
+          <div class="hero-divider"></div>
+          <div class="hero-bottom"><span><i class="sun-dot"></i><span id="feelsLike">Feels like --°</span></span><span id="weatherDescription">Search any city to begin</span></div>
+        </article>
+        <article class="insight-card">
+          <div class="section-heading"><div><p class="eyebrow">SKYCAST INSIGHT</p><h3>Today's outlook</h3></div><span class="sparkle">✧</span></div>
+          <div class="insight-icon" id="insightIcon">☀</div><h3 id="insightTitle">Ready when you are</h3><p id="insightText">Search for a city to receive a practical summary based on current conditions.</p>
+          <div id="weatherAlert" class="weather-alert hidden"><span>⚑</span><span id="alertText"></span></div>
+          <button class="text-action" id="refreshBtn">Refresh conditions <span>↻</span></button>
+        </article>
+      </section>
+
+      <section class="metrics-grid" aria-label="Weather details">
+        <article class="metric-card"><div class="metric-icon humidity">≋</div><p>Humidity</p><strong id="humidity">--<small>%</small></strong><div class="metric-foot">Moisture in the air</div></article>
+        <article class="metric-card"><div class="metric-icon wind">↗</div><p>Wind speed</p><strong id="wind">--<small> m/s</small></strong><div class="metric-foot" id="windDirection">Current wind conditions</div></article>
+        <article class="metric-card"><div class="metric-icon pressure">◉</div><p>Pressure</p><strong id="pressure">--<small> hPa</small></strong><div class="metric-foot">Sea-level pressure</div></article>
+        <article class="metric-card"><div class="metric-icon visibility">◌</div><p>Visibility</p><strong id="visibility">--<small> km</small></strong><div class="metric-foot">Distance you can see</div></article>
+      </section>
+
+      <section class="content-grid" id="forecastSection">
+        <article class="panel forecast-panel">
+          <div class="section-heading"><div><p class="eyebrow">PLAN AHEAD</p><h2>5-day forecast</h2></div><span class="panel-pill">NEXT 5 DAYS</span></div>
+          <div id="forecast" class="forecast-list"><div class="empty-state">Your five-day forecast will appear here after a search.</div></div>
+        </article>
+        <article class="panel sun-panel">
+          <div class="section-heading"><div><p class="eyebrow">DAYLIGHT</p><h2>Sun tracker</h2></div><span class="sun-symbol">☼</span></div>
+          <div class="sun-arc"><div class="sun-track"></div><div class="sun-horizon"></div><div id="sunPosition" class="sun-position">☀</div></div>
+          <div class="sun-times"><div><span>☀ Sunrise</span><strong id="sunrise">--:--</strong></div><div><span>☾ Sunset</span><strong id="sunset">--:--</strong></div></div>
+          <p class="sun-caption" id="daylightText">Check daylight hours for your selected city.</p>
+        </article>
+      </section>
+
+      <section class="content-grid lower-grid" id="airSection">
+        <article class="panel hourly-panel">
+          <div class="section-heading"><div><p class="eyebrow">THE NEXT 24 HOURS</p><h2>Hourly conditions</h2></div><span class="panel-pill">3-HOUR STEPS</span></div>
+          <div id="hourlyForecast" class="hourly-list"><div class="empty-state">Hourly conditions appear after a search.</div></div>
+        </article>
+        <article class="panel air-panel">
+          <div class="section-heading"><div><p class="eyebrow">BREATHE EASIER</p><h2>Air quality</h2></div><span class="air-orb">◉</span></div>
+          <div class="air-score-row"><div id="aqiNumber" class="aqi-number">--</div><div><strong id="aqiLabel">Awaiting data</strong><p id="aqiSummary">Search a city to check its air quality.</p></div></div>
+          <div class="aqi-scale"><span></span><span></span><span></span><span></span><span></span></div>
+          <div class="pollutants"><div><span>PM2.5</span><strong id="pm25">--</strong></div><div><span>PM10</span><strong id="pm10">--</strong></div><div><span>O₃</span><strong id="ozone">--</strong></div></div>
+          <p class="data-note">Air quality values are provided by OpenWeather and may vary by location.</p>
+        </article>
+      </section>
+
+      <footer><span>✦ SKYCAST</span><span>Weather data by OpenWeather · Built for curious minds</span><button id="clearBtn">Clear dashboard</button></footer>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
